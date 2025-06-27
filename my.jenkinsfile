@@ -1,0 +1,22 @@
+pipeline {
+    // Define an agent for the entire pipeline
+    // 'any' means Jenkins will use any available agent
+    // You can also specify a label like 'agent { label 'my-linux-agent' }'
+    agent any 
+
+    stages {
+        stage('Checkout Source Code') {
+            steps {
+                // Your checkout step goes here
+                checkout scmGit(branches: [[name: '*/main']], extensions: [], userRemoteConfigs: [[url: 'https://github.com/KirillAvdyeyev/test.git']])
+                sh 'ls -la'
+            }
+        }
+        // You can add more stages here, e.g., Build, Test, Deploy
+        // stage('Build') {
+        //     steps {
+        //         sh 'mvn clean install'
+        //     }
+        // }
+    }
+}
